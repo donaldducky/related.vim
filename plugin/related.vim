@@ -4,7 +4,7 @@
 
 " Open the related file in a vsplit
 function! s:RelatedFile()
-  let related = s:GetRelated(expand('%'))
+  let related = s:GetRelated(expand('%:p'))
   if related ==# ''
     echo "Unable to find related file."
     return
