@@ -3,6 +3,29 @@ related.vim
 
 A vim plugin for opening a related file based on the file path.
 
+Installation
+------------
+
+### Vundle
+
+I prefer to use [Vundle](https://github.com/gmarik/vundle).
+
+Install Vundle, following the [instructions](https://github.com/gmarik/vundle#quick-start).
+
+Add the Bundle to your vimrc:
+
+    Bundle 'donaldducky/related.vim'
+
+Then run the `BundleInstall` from the command line:
+
+    vim +BundleInstall +qall
+
+### Pathogen
+
+If you use [pathogen.vim](https://github.com/tpope/vim-pathogen), you can just clone the repo, manually.
+
+    git clone https://github.com/donaldducky/related.vim ~/.vim/bundle/related.vim
+
 Commands
 --------
 
