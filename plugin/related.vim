@@ -26,12 +26,12 @@ endfunction
 " ie. src/Me/Hello/There.php -> tests/Me/Tests/Hello/ThereTest.php
 function! s:GetRelated(file)
   if match(a:file, 'src') >=# 0
-    let path = substitute(a:file, 'src/\([^/]\+\)/\(\([^/]\+/\)\+\)\?\(.*\).php$', 'tests/\1/Tests/\2\4Test.php', '')
+    let path = substitute(a:file, '\vsrc/([^/]+)/(([^/]+/)+)?(.*).php$', 'tests/\1/Tests/\2\4Test.php', '')
     if path !=# a:file
       return path
     endif
   elseif match(a:file, 'tests') >=# 0
-    let path = substitute(a:file, 'tests/\([^/]\+\)/Tests/\(\([^/]\+/\)\+\)\?\(.*\)Test.php$', 'src/\1/\2\4.php', '')
+    let path = substitute(a:file, '\vtests/([^/]+)/Tests/(([^/]+/)+)?(.*)Test.php$', 'src/\1/\2\4.php', '')
     if path !=# a:file
       return path
     endif
