@@ -6,9 +6,9 @@ A vim plugin for opening a related file based on the file path.
 Installation
 ------------
 
-### Vundle
+I prefer to use [Vundle](https://github.com/gmarik/vundle) but it's just as easy using other methods.
 
-I prefer to use [Vundle](https://github.com/gmarik/vundle).
+### Vundle
 
 Install Vundle, following the [instructions](https://github.com/gmarik/vundle#quick-start).
 
@@ -31,8 +31,11 @@ Commands
 
 There are two commands currently exposed:
 
-1. `:RelatedFile` - Opens the related file in a vertical split
-2. `:RelatedTests` - Runs the unit tests for the plugin
+1. `:RelatedFile` - Opens the related file in a vertical split. Optionally accepts an argument to open the related file using other methods:
+  * `:RelatedFile e` opens using `:e[dit]` command in the current window
+  * `:RelatedFile sp` opens using `:sp[lit]` command in a horizontal split window
+  * `:RelatedFile vs` opens using `:vs[plit]` command in a vertical split window
+2. `:RelatedTests` - Runs the unit tests for the plugin.
 
 Workflow
 --------
@@ -46,6 +49,8 @@ I bind the `:RelatedFile` command to a `<leader>` mapping in my `.vimrc`:
     let mapleader = ","
     let g:mapleader = ","
     map <Leader>rf :RelatedFile<CR>
+    map <Leader>re :RelatedFile e<CR>
+    map <Leader>rs :RelatedFile sp<CR>
 
 Inspiration
 -----------

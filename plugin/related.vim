@@ -1,16 +1,22 @@
 " Author:      Donald Chea
-" Version:     0.1.0
+" Version:     0.1.1
 " Description: Open a related file based on the path.
 
 " Open the related file in a vsplit
-function! s:RelatedFile()
+function! s:RelatedFile(open_method)
   let related = s:GetRelated(expand('%:p'))
   if related ==# ''
     echo "Unable to find related file."
     return
   endif
 
-  exec('vsplit ' . related)
+  exec(s:OpenCommand(a:open_method) . ' ' . related)
+endfunction
+
+" Return the command to open the related file
+function! s:OpenCommand(cmd)
+  let open_commands = { 'sp': 'split', 'vs': 'vsplit', 'e': 'edit' }
+  return get(open_commands, a:cmd, 'vsplit')
 endfunction
 
 " Find src or test file based on a file path.
@@ -65,6 +71,14 @@ function! s:RunTests()
   " Proper format, test file, no namespace
   call s:Equals('src/Vendor/Class.php', s:GetRelated('tests/Vendor/Tests/ClassTest.php'))
 
+  echo "Test s:OpenCommand"
+  call s:Equals('vsplit', s:OpenCommand('vs'))
+  call s:Equals('split', s:OpenCommand('sp'))
+  call s:Equals('edit', s:OpenCommand('e'))
+  " Defaults to vsplit
+  call s:Equals('vsplit', s:OpenCommand(''))
+  call s:Equals('vsplit', s:OpenCommand('does-not-exist'))
+
   echo printf("\nFinished test suite - %d of %d tests passed (%d%%)", s:passes, s:test_number, s:passes*100/s:test_number)
 endfunction
 
@@ -81,5 +95,5 @@ function! s:Equals(expect, actual)
   endif
 endfunction
 
-command! RelatedFile :call <SID>RelatedFile()
+command! -nargs=? RelatedFile :call <SID>RelatedFile(<q-args>)
 command! RelatedTests :call <SID>RunTests()
